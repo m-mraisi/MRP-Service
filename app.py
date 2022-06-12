@@ -85,65 +85,16 @@ def cleansing_function(df):
     return df
 
 
-
-def getData(name): ## this is to search for the movie/show on IMDB (meta Deta API)
-    try:
-        url = "https://imdb-data-searching.p.rapidapi.com/om"
-        payload = {}
-        querystring = {"s": name}
-        headers = {
-            'x-rapidapi-host': 'imdb-data-searching.p.rapidapi.com',
-            'x-rapidapi-key': '854f499730msh59cb809738dc4d2p199deajsned1db3533efd'
-        }
-        response = requests.request(
-            "GET", url, headers=headers, params=querystring)
-        data = json.loads(response.text)
-
-        print("response.text", data)
-        return response.text
-    except Exception as e:
-        print(e)
-        return e
- 
-
-@app.route('/')  # home page (movies)
+@app.route('/')  # home page
 def index():
-    
     return jsonify({"test":True})
 
-
-@app.route('/getData')  # home page (shwos)
+@app.route('/getData') 
 def getData():
     df = pd.read_csv("https://raw.githubusercontent.com/slavaspirin/Toronto-housing-price-prediction/master/houses.csv")
     original_data = df.copy()
     clean_data = cleansing_function(df)
-    # response = make_response(clean_data.to_json)
-    # response.headers["Content-Type"] = "application/json"
     return clean_data.to_csv()
-
-@app.route("/search", methods=["GET"])
-def search():
-    try:
-        params = request.args.get('s')
-        print(params)
-        url = "https://imdb-data-searching.p.rapidapi.com/om"
-        payload = {}
-        querystring = {"s": params}
-        headers = {
-            'x-rapidapi-host': 'imdb-data-searching.p.rapidapi.com',
-            'x-rapidapi-key': '854f499730msh59cb809738dc4d2p199deajsned1db3533efd'
-        }
-        print("doing")
-        response = requests.request(
-            "GET", url, headers=headers, params=querystring)
-        data = json.loads(response.text)
-
-        print("response.text", response.text)
-        return make_response(jsonify(data))
-    except Exception as e:
-        print(e)
-        return e
-
 
 if __name__ == "__main__":
     app.run()
