@@ -104,7 +104,7 @@ def getData(name): ## this is to search for the movie/show on IMDB (meta Deta AP
     except Exception as e:
         print(e)
         return e
-
+ 
 
 @app.route('/')  # home page (movies)
 def index():
