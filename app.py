@@ -94,7 +94,7 @@ def getData():
     df = pd.read_csv("https://raw.githubusercontent.com/slavaspirin/Toronto-housing-price-prediction/master/houses.csv")
     original_data = df.copy()
     clean_data = cleansing_function(df)
-    return clean_data.to_csv()
+    return clean_data.to_json()
 
 if __name__ == "__main__":
     app.run()
