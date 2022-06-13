@@ -98,7 +98,12 @@ def getData():
     array.append(clean_data.to_json())
     # print(clean_data.to_excel())
     # data = json.loads(jsonify(array))
-    return make_response(clean_data.to_csv())
+    # return make_response(clean_data.to_csv( sep=','))
+    response = make_response(clean_data.to_csv( sep=','))
+    cd = 'attachment; filename=mycsv.csv'
+    response.headers['Content-Disposition'] = cd
+    response.mimetype = 'text/csv'
+    return response
 
 if __name__ == "__main__":
     app.run()
