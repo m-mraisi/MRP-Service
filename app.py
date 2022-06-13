@@ -96,7 +96,9 @@ def getData():
     clean_data = cleansing_function(df)
     array = []
     array.append(clean_data.to_json())
-    return jsonify(array)
+    print(clean_data.to_json())
+    # data = json.loads(jsonify(array))
+    return make_response(clean_data.to_json())
 
 if __name__ == "__main__":
     app.run()
