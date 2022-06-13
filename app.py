@@ -82,7 +82,7 @@ def cleansing_function(df):
     final_df["sqft"] = final_df["sqft"].round()
     df = final_df
     print("df.shape", df.shape)
-    return df.head(300)
+    return df
 
 
 @app.route('/')  # home page
@@ -94,16 +94,7 @@ def getData():
     df = pd.read_csv("https://raw.githubusercontent.com/slavaspirin/Toronto-housing-price-prediction/master/houses.csv")
     original_data = df.copy()
     clean_data = cleansing_function(df)
-    array = []
-    array.append(clean_data.to_json())
-    # print(clean_data.to_excel())
-    # data = json.loads(jsonify(array))
     return make_response(clean_data.to_csv( sep=','))
-    response = make_response(clean_data.to_csv( sep=','))
-    cd = 'attachment; filename=mycsv.csv'
-    response.headers['Content-Disposition'] = cd
-    response.mimetype = 'text/csv'
-    return response
 
 if __name__ == "__main__":
     app.run()
