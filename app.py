@@ -82,7 +82,7 @@ def cleansing_function(df):
     final_df["sqft"] = final_df["sqft"].round()
     df = final_df
     print("df.shape", df.shape)
-    return df
+    return df[300]
 
 
 @app.route('/')  # home page
