@@ -89,7 +89,7 @@ def cleansing_function(df):
 def index():
     return jsonify({"test":True})
 
-@app.route('/getData') 
+@app.route('/getData.csv') 
 def getData():
     df = pd.read_csv("https://raw.githubusercontent.com/slavaspirin/Toronto-housing-price-prediction/master/houses.csv")
     original_data = df.copy()
@@ -98,7 +98,7 @@ def getData():
     array.append(clean_data.to_json())
     # print(clean_data.to_excel())
     # data = json.loads(jsonify(array))
-    # return make_response(clean_data.to_csv( sep=','))
+    return make_response(clean_data.to_csv( sep=','))
     response = make_response(clean_data.to_csv( sep=','))
     cd = 'attachment; filename=mycsv.csv'
     response.headers['Content-Disposition'] = cd
